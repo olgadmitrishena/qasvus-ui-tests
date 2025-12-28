@@ -21,9 +21,25 @@ class TestContactForm(unittest.TestCase):
 
 
     def test_empty_contact_form_shows_warning(self):
-        self.page.submit_empty_form()
-        warnings = self.driver.find_elements(*self.page.WARNINGS)
-        self.assertTrue(len(warnings) > 0, "Expected validation warnings")
+        test_cases = [
+            {"name": "", "email": "", "message": ""},
+            {"name": "Olga", "email": "", "message": ""},
+            {"name": "", "email": "test@test.com", "message": ""},
+        ]
+
+        for case in test_cases:
+            with self.subTest(case=case):
+                self.page.submit_contact_form(
+                    name=case["name"],
+                    email=case["email"],
+                    message=case["message"]
+                )
+                warnings = self.driver.find_elements(*self.page.WARNINGS)
+                self.assertTrue(
+                    len(warnings) > 0,
+                    msg=f"Expected warnings for case: {case}"
+                )
+
 
     def test_valid_contact_form_submit(self):
         self.page.submit_contact_form(
