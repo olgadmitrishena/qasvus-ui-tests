@@ -1,0 +1,16 @@
+# qasvus-ui-tests
+
+UI automation framework for https://qasvus.wordpress.com
+Built with **Python + Selenium + unittest** using Page Object Model.
+
+---
+
+## 🔧 Tech stack
+- Python 3
+- Selenium WebDriver
+- unittest
+- webdriver-manager
+
+---
+
+## 📁 Project structure
