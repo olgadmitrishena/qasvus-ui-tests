@@ -1,15 +1,9 @@
-import unittest
-from pages.home_page import HomePage
-from src.config import BASE_URL, DEFAULT_TIMEOUT
-from src.driver_factory import create_driver
 
 
-class TestContactForm(unittest.TestCase):
+from tests.base_test import BaseTest
 
-    def setUp(self):
-        self.driver = create_driver()
-        self.page = HomePage(self.driver, timeout=DEFAULT_TIMEOUT)
-        self.page.open(BASE_URL)
+class TestContactForm(BaseTest):
+
 
     def test_empty_contact_form_shows_warning(self):
         self.page.submit_empty_form()
@@ -23,9 +17,6 @@ class TestContactForm(unittest.TestCase):
             message="Hello! This is an automated unittest message."
         )
         self.page.wait_visible(self.page.SENT_MSG)
-
-    def tearDown(self):
-        self.driver.quit()
 
 
 if __name__ == "__main__":
