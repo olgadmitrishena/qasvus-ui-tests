@@ -1,8 +1,23 @@
+import unittest
+
+from pages.home_page import HomePage
+from src.driver_factory import create_driver
+from src.config import BASE_URL
 
 
-from tests.base_test import BaseTest
+class TestContactForm(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = create_driver()
+        cls.driver.get(BASE_URL)
 
-class TestContactForm(BaseTest):
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+
+    def setUp(self):
+        self.driver.get(BASE_URL)
+        self.page = HomePage(self.driver)
 
 
     def test_empty_contact_form_shows_warning(self):
