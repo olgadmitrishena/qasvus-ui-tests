@@ -64,6 +64,36 @@ class TestCrossBrowserContactForm(unittest.TestCase):
         finally:
             driver.quit()
 
+    def test_contact_form_firefox_1820x1050(self):
+        driver = create_driver("firefox")
+        try:
+            driver.set_window_size(1820, 1050)
+
+            page = HomePage(driver)
+            driver.get(BASE_URL)
+
+            self.assertTrue(len(driver.title) > 0, "Title should not be empty")
+            print("[Firefox | 1820x1050] Home page title:", driver.title)
+
+            page.wait_visible(page.NAME)
+            page.clear_contact_form_fields()
+
+            page.fill_contact_form(
+                name="Olga Test",
+                email="olga.test@example.com",
+                message="Firefox 1820x1050 test"
+            )
+            page.submit_contact_form()
+
+            page.wait_go_back_visible()
+
+            self.assertTrue(len(driver.title) > 0, "Title after submit should not be empty")
+            print("[Firefox | 1820x1050] After submit title:", driver.title)
+
+        finally:
+            driver.quit()
+
+
 
 if __name__ == "__main__":
     unittest.main()
